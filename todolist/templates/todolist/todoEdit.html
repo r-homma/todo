@@ -1,0 +1,27 @@
+{% extends 'todolist/base2.html' %}
+
+{% block title %}ToDo Edit{% endblock %}
+
+{% block contents %}
+<article class="todoedit">
+  <div class="page-name">
+    <h1>ToDo編集フォーム</h1>
+  </div>
+  <div class="todoedit-form">
+    <form action="{% url 'todoEdit' edit_id %}" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="field-row">
+          {{ field.label_tag }}{{ field }}
+        </div>
+      {% endfor %}
+      <table>
+        <tr class="選択">
+          <th><button type="submit" value="Save">Save</button></th>
+          <th><button type="button" onclick="history.back()">back</button></th>
+        </tr>
+      </table>
+    </form>
+  </div>
+</article>
+{% endblock %}

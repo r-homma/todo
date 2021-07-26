@@ -1,0 +1,39 @@
+{% extends 'todolist/base.html' %}<!-- base.htmlを拡張してindex.htmlを作成することを宣言　-->
+
+{% block title %}ToDoList Top{% endblock %}<!-- titleブロックにToDoList Topという文字を代入している　-->
+
+{% block contents %}<!-- contentsブロックに代入するコードの記述　-->
+
+  <div class="page-name">
+    <h1>ToDoList</h1>
+  </div>
+  <div class="todolist">
+    <table>
+      <tr class="tb-header">
+        <th>Title</th>
+        <th>記入日</th>
+        <th>締切日</th>
+        <th>完了/未完了</th>
+        <th>削除ボタン</th>
+      </tr>
+
+  {% for tdl in todolist %}
+    <tr class="tdl">
+      <td class="title"><a href="{% url 'todoEdit' tdl.id %}">{{ tdl.title }}</a></td> 
+      <td class="entry-date">{{ tdl.entryDate|date:"n/j" }}</td>
+      <td class="deadline">{{ tdl.deadline|date:"n/j" }}</td>
+      <td class="done">
+        {% if tdl.done == False %}
+          <label>未</label>
+        {% elif tdl.done == True %}
+          <label>済</label>
+        {% endif %}
+       </td>
+       <td class="btn-del"><a href="{% url 'todoDelete' tdl.id %}">Delete</a></td>
+    </tr>
+  {% endfor %}
+  
+    </table>
+  </div>
+
+{% endblock %}
